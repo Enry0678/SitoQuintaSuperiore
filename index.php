@@ -11,6 +11,34 @@
     </head>
 
     <body>
+        <header class="site-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="logo">
+                        <a href="/">
+                            <strong>B</strong>
+                        </a>
+                    </div>
+                    <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="/" class="active">Home</a></li>
+                        <li><a href="/features">Features</a></li>
+                        <li><a href="/pricing">Pricing</a></li>
+                        <li><a href="/faqs">FAQs</a></li>
+                        <li><a href="/about">About</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <a href="/login" class="login-btn">Login</a>
+                    <a href="/signup" class="signup-btn">Sign-up</a>
+                </div>
+            </div>
+        </header>
+
         <div class="container">
             <div class="form-header">
                 <h1>Prenotazione di appartamenti</h1>
@@ -69,7 +97,7 @@
 
         <div class="container description-section">
             <h2>Il Tuo Soggiorno Perfetto in Italia</h2>
-            <p>Benvenuti nella vostra destinazione ideale per trovare l'alloggio perfetto in Italia. La nostra piattaforma vi offre un'ampia selezione di appartamenti e sistemazioni in tutta la penisola, dalle vivaci città d'arte alle tranquille località costiere.</p>
+            <p>Benvenuti nella vostra destinazione ideale per trovare l'alloggio perfetto in Italia. La nostra piattaforma vi offre un'ampia selezione di appartamenti e sistemazioni in tutta la penisola, dalle vivaci città d'arte alle tranquille località costiere. Tutti gli alloggi sono resi disponibili direttamente dai proprietari, garantendo autenticità e trasparenza nella vostra esperienza di prenotazione.</p>
             
             <div class="features">
                 <div class="feature">
@@ -88,7 +116,38 @@
                 </div>
             </div>
             
-            <p class="closing-text">Che stiate pianificando una vacanza in famiglia, un viaggio di lavoro o una fuga romantica, abbiamo l'alloggio perfetto per le vostre esigenze. Iniziate ora la vostra ricerca e scoprite il meglio dell'ospitalità italiana.</p>
+            <p class="closing-text">Che stiate pianificando una vacanza in famiglia, un viaggio di lavoro o una fuga romantica, abbiamo l'alloggio perfetto per le vostre esigenze. Iniziate ora la vostra ricerca e scoprite il meglio dell'ospitalità italiana, direttamente dai proprietari che aprono le loro case per voi.</p>
         </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const menuToggle = document.querySelector('.mobile-menu-toggle');
+                const mainNav = document.querySelector('.main-nav');
+                const authButtons = document.querySelector('.auth-buttons');
+                
+                menuToggle.addEventListener('click', function() {
+                    mainNav.classList.toggle('active');
+                    if (window.innerWidth <= 480) {
+                        authButtons.classList.toggle('active');
+                    }
+                });
+
+                // Close menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.site-header')) {
+                        mainNav.classList.remove('active');
+                        authButtons.classList.remove('active');
+                    }
+                });
+
+                // Handle window resize
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768) {
+                        mainNav.classList.remove('active');
+                        authButtons.classList.remove('active');
+                    }
+                });
+            });
+        </script>
     </body>
 </html>
