@@ -33,7 +33,7 @@
                     </ul>
                 </nav>
                 <div class="auth-buttons">
-                    <a href="/login" class="login-btn">Login</a>
+                    <a href="login.php" class="login-btn">Login</a>
                     <a href="/signup" class="signup-btn">Sign-up</a>
                 </div>
             </div>
