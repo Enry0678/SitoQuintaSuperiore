@@ -34,7 +34,7 @@
                 </nav>
                 <div class="auth-buttons">
                     <a href="login.php" class="login-btn">Login</a>
-                    <a href="/signup" class="signup-btn">Sign-up</a>
+                    <a href="logx-v1.0-t3kg3u/logx v1.0/assets/log-form/2/signup.html" class="signup-btn">Sign-up</a>
                 </div>
             </div>
         </header>

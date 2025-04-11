@@ -47,10 +47,10 @@
             ?>
             <form class="login-form" action="process_login.php" method="POST">
                 <div class="form-group">
-                    <label for="username">Username o Email</label>
+                    <label for="username">Username</label>
                     <div class="input-group">
                         <i class="fas fa-user"></i>
-                        <input type="text" id="username" name="username" required placeholder="Inserisci il tuo username o email">
+                        <input type="text" id="username" name="username" required placeholder="Inserisci il tuo username">
                     </div>
                 </div>
                 <div class="form-group">
