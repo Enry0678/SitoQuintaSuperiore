@@ -13,7 +13,7 @@
                 <?php 
                     session_start();
                     if(isset($_SESSION["username"])){
-                        echo "<li><a href='profile.php'>Profilo</a></li>";
+                        echo "<li><a href='account.php'>Profilo</a></li>";
                         echo "<li><a href='logout.php'>Logout</a></li>";
                     }
                     else{

@@ -1,13 +1,21 @@
 <?php
-// Include database connection
-include 'config.php';
 
 // Check if username is provided
 if(isset($_POST['username'])) {
     $username = $_POST['username'];
+
+    $nomeDatabase = "appartamentiDB";
+    $nomeUtenteDB = "root";
+    $passwordDB = "";
+
+    //connessione al database
+    $conn = new mysqli("localhost", $nomeUtenteDB, $passwordDB, $nomeDatabase);
+    if($conn->connect_error){
+        die("Connection failed: " . $conn->connect_error);
+    }
     
     // Prepare statement to prevent SQL injection
-    $stmt = $mysqli->prepare("SELECT COUNT(*) as count FROM utenti WHERE username = ?");
+    $stmt = $conn->prepare("SELECT COUNT(*) as count FROM utenti WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -22,10 +30,9 @@ if(isset($_POST['username'])) {
     }
     
     $stmt->close();
+    $conn->close();
 } else {
     header('Content-Type: application/json');
     echo json_encode(['error' => 'Username non fornito']);
 }
-
-$mysqli->close();
 ?> 
