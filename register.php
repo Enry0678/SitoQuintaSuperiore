@@ -18,6 +18,24 @@
     </style>
 </head>
 <body>
+    <header>
+        <nav>
+            <ul>
+                <?php 
+                    session_start();
+                    if(isset($_SESSION["username"])){
+                        echo "<li><a href='index.php'>Home</a></li>";
+                        echo "<li><a href='account.php'>Profilo</a></li>";
+                        echo "<li><a href='logout.php'>Logout</a></li>";
+                    }
+                    else{
+                        echo "<li><a href='index.php'>Home</a></li>";
+                        echo "<li><a href='login.php'>Login</a></li>";
+                    }
+                ?>
+            </ul>
+        </nav>
+    </header>
     <form action="validateRegister.php" method="post" id="registrationForm">
         <label for="nome">Nome:</label><br>
         <input type="text" id="nome" name="nome" required><br>
