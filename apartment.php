@@ -46,6 +46,7 @@
         while($row = $result->fetch_assoc()){
             echo "<h1>Appartamento: " . $row["nome"] . "</h1>";
             echo "<p>Proprietario: " . $row["proprietario"] . "</p>";
+            echo "<p>Indirizzo: ".$row["indirizzo"]."</p>";
             echo "<p>Prezzo: " . $row["prezzo"]*$days . "€</p>";
             echo "<p>Citta: " . $row["citta"] . "</p>";
             echo "<p>Descrizione: " . $row["descrizione"] . "</p>";

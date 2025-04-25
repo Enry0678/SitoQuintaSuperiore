@@ -31,7 +31,15 @@
         <label for="checkin">Data di check-in:</label>
         <input type="date" id="checkin" name="checkin" required>
         <label for="checkout">Data di check-out:</label>
-        <input type="date" id="checkout" name="checkout" required>
+        <input type="date" id="checkout" name="checkout" required><br>
+        <label for="adulti">Adulti: </label>
+        <input type="number" id="adulti" name="adulti" value="1" required>
+        <label for="bambini">Bambini: </label>
+        <input type="number" id="bambini" name="bambini" value="0" required>
+        <label for="camere">Numero di camere: </label>
+        <input type="number" id="camere" name="camere" value="1" required>
+        <label for="letti">Numero di letti: </label>
+        <input type="number" id="letti" name="letti" value="1" required>
         <button type="submit">Cerca</button>
     </form>
 

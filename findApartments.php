@@ -25,6 +25,9 @@
     $city = $_GET["city"];
     $checkin = $_GET["checkin"];
     $checkout = $_GET["checkout"];
+    $persone = (int)$_GET["adulti"] + (int)$_GET["bambini"];
+    $camere = (int)$_GET["camere"];
+    $letti = (int)$_GET["letti"];
 
     $nomeDatabase = "appartamentiDB";
     $nomeUtenteDB = "root";
@@ -35,8 +38,8 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $stmt = $conn->prepare("SELECT * FROM appartamenti WHERE citta = ?");
-    $stmt->bind_param("s", $city);
+    $stmt = $conn->prepare("SELECT * FROM appartamenti WHERE citta = ? AND numero_camere = ? AND numero_letti = ? AND numero_persone >= ?");
+    $stmt->bind_param("siii", $city, $camere, $letti, $persone);
     $stmt->execute();
     $result = $stmt->get_result();
 
