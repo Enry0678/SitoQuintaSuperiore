@@ -63,5 +63,7 @@
             $mysqli->close();
             $conn->close();
     ?>
+    <a href="modifyProfile.php">Modifica il profilo</a>
+    <a href="addApartment.php">Aggiungi un appartmento</a>
 </body>
 </html>
