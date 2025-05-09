@@ -48,7 +48,7 @@
             $result = $mysqli->get_result();
 
             if($row = $result->fetch_assoc()) {
-                echo "<div class='user-info'>";
+                echo "<div>";
                 echo "<p><strong>Nome:</strong> " . htmlspecialchars($row['nome']) . "</p>";
                 echo "<p><strong>Cognome:</strong> " . htmlspecialchars($row['cognome']) . "</p>";
                 echo "<p><strong>Data di nascita:</strong> " . htmlspecialchars($row['data_nascita']) . "</p>";
@@ -64,6 +64,6 @@
             $conn->close();
     ?>
     <a href="modifyProfile.php">Modifica il profilo</a>
-    <a href="addApartment.php">Aggiungi un appartmento</a>
+    <a href="addApartmentForm.php">Aggiungi un appartmento</a>
 </body>
 </html>

@@ -1,97 +1,70 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aggiungi un appartamento</title>
-</head>
-<body>
-    <header>
-        <nav>
-            <ul>
-                <?php 
-                    session_start();
-                    if(isset($_SESSION["username"])){
-                        echo "<li><a href='index.php'>Home</a></li>";
-                        echo "<li><a href='account.php'>Profilo</a></li>";
-                        echo "<li><a href='logout.php'>Logout</a></li>";
-                    }
-                    else{
-                        echo "<li><a href='index.php'>Home</a></li>";
-                        echo "<li><a href='login.php'>Login</a></li>";
-                    }
-                ?>
-            </ul>
-        </nav>
-    </header>
-    
-    <h1>Crea un appartamento</h1>
-    <form action="registerApartment.php" method="get">
-            <!-- inserisci il form per aggiungere un appartamento al sito -->
-             <label for="nome">Nome:</label><br>
-             <input type="text" name="nome" id="nome" placeholder="nome dell'appartamento" size="100"><br>
-             
-             <label for="citta">Città:</label>
-             <select name="citta" id="citta">
-                <?php
-                    // Connessione al database
-                    $nomeDatabase = "appartamentiDB";
-                    $nomeUtenteDB = "root";
-                    $passwordDB = "";
+<?php
+session_start();
 
-                    $conn = new mysqli("localhost", $nomeUtenteDB, $passwordDB, $nomeDatabase);
-                    if($conn->connect_error){
-                        die("Connection failed: " . $conn->connect_error);
-                    }
+$nome = $_POST['nome'];
+$citta = $_POST['citta'];
+$indirizzo = $_POST['indirizzo'];
+$numero_camere = $_POST['numero_camere'];
+$numero_letti = $_POST['numero_letti'];
+$numero_persone = $_POST['posti_letto'];
+$prezzo = $_POST['prezzo'];
+$descrizione = $_POST['descrizione'];
 
-                    // Query per ottenere i dati
-                    $mysqli = $conn->prepare("SELECT nome FROM citta");
-                    $mysqli->execute();
-                    $result = $mysqli->get_result();
+$serviziSelezionati = isset($_POST['servizi']) ? $_POST['servizi'] : [];
 
-                    while($row = $result->fetch_assoc()){
-                        echo "<option value='{$row["nome"]}'> {$row["nome"]} ";
-                    }
-                ?>
-            </select><br>
+// Leggi contenuto immagini
+function getFileContent($file) {
+    if ($file != null && $file['error'] === UPLOAD_ERR_OK) {
+        return file_get_contents($file['tmp_name']);
+    }
+    return null;
+}
 
-            <label for="indirizzo">Indirizzo:</label><br>
-            <input type="text" name="indirizzo" id="indirizzo" size="100"><br>
+$immagine1_content = getFileContent($_FILES['immagine1']);
+$immagine2_content = getFileContent($_FILES['immagine2']);
+$immagine3_content = getFileContent($_FILES['immagine3']);
 
-            <label for="numero_camere">Numero di camere:</label><br>
-            <input type="number" name="numero_camere" id="numero_camere"><br>
+// Connessione DB
+$conn = new mysqli("localhost", "root", "", "appartamentiDB");
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-            <label for="numero_letti">Numeri di letti:</label><br>
-            <input type="number" name="numero_letti" id="numero_letti"><br>
+// Prepara la query con segnaposto per immagini blob
+$query = $conn->prepare("INSERT INTO appartamenti
+    (proprietario, nome, citta, indirizzo, numero_camere, numero_letti, prezzo, descrizione, numero_persone, immagine1, immagine2, immagine3)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-            <label for="posti_letto">Posti letto:</label><br>
-            <input type="number" name="posti_letto" id="posti_letto"><br>
+$query->bind_param("ssssiidsibbb",
+    $_SESSION["username"], $nome, $citta, $indirizzo,
+    $numero_camere, $numero_letti, $prezzo, $descrizione,
+    $numero_persone, $null, $null, $null);
 
-            <label for="prezzo">Prezzo per persona:</label><br>
-            <input type="number" name="prezzo" id="prezzo"><br>
+// Usa send_long_data per ogni immagine
+$query->send_long_data(9, $immagine1_content);
+$query->send_long_data(10, $immagine2_content);
+$query->send_long_data(11, $immagine3_content);
 
-            <label for="descrizione">Descrizione:</label><br>
-            <input type="text" name="descrizione" id="descrizione" size="500"><br>
+if ($query->execute()) {
+    $apartment_id = $conn->insert_id;
 
-            <label for="servizi">Seleziona i servizi disponibili nell'appartamento:</label><br>
-            
-            <?php
+    $stmt_servizi = $conn->prepare("INSERT INTO axs (appartamento, servizio) VALUES (?, ?)");
+    $stmt_servizi->bind_param("is", $apartment_id, $servizio);
 
-                // Query per ottenere i dati
-                $mysqli = $conn->prepare("SELECT * FROM servizi");
-                $mysqli->execute();
-                $result = $mysqli->get_result();
-                
-                $index = 0;
-                while($row = $result->fetch_assoc()){
-                    echo "<input type='checkbox' name='serv{$index}' id='serv{$index}' value='{$row["nome"]}'>";
-                    echo "<label for='serv{$index}'>{$row["nome"]} {$row["simbolo"]}</label><br>";
-                }
+    foreach ($serviziSelezionati as $serv) {
+        $servizio = $serv;
+        $stmt_servizi->execute();
+    }
+    $stmt_servizi->close();
 
-            ?>
+    $query->close();
+    $conn->close();
 
-            <input type="submit" value="Crea appartamento">
-    </form>
+    header("Location: index.php?messaggio=appartamento_creato");
+    exit();
+} else {
+    echo "Errore nell'inserimento dell'appartamento: " . $query->error;
+}
 
-</body>
-</html>
+$conn->close();
+?>
