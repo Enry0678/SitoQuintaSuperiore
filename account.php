@@ -64,6 +64,7 @@
             $conn->close();
     ?>
     <a href="modifyProfile.php">Modifica il profilo</a>
+    |
     <a href="addApartmentForm.php">Aggiungi un appartmento</a>
 </body>
 </html>

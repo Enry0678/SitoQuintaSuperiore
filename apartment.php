@@ -95,7 +95,12 @@ if($result->num_rows > 0){
         $queryServizi->close();
     }
 }
-
+    $adulti = $_GET["adulti"];
+    $bambini = $_GET["bambini"];
+    echo "<form action='reservation.php?codice={$codice}&checkin={$checkin}&checkout={$checkout}&adulti={$adulti}&bambini={$bambini}' method='post'>";
+    echo "   <input type='submit' value='Prenota ora'>";
+    echo "</form>";
 ?>
+
 </body>
 </html>

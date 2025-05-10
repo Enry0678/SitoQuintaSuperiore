@@ -47,7 +47,7 @@
 
     if($result->num_rows > 0){
         while($row = $result->fetch_assoc()){
-            echo "<strong>Appartamento: <a href='apartment.php?codice=" . $row["codice"] . "&checkin=" . $checkin . "&checkout=" . $checkout . "'>" . $row["nome"] . "</a></strong>";
+            echo "<strong>Appartamento: <a href='apartment.php?codice={$row["codice"]}&checkin={$checkin}&checkout={$checkout}&adulti={$_GET['adulti']}&bambini={$_GET['bambini']}'>{$row["nome"]}</a></strong>";
             echo "<p>Prezzo: " . $row["prezzo"]*$days . "€</p>";
         }
     }
