@@ -25,13 +25,25 @@ $giorni = $data_inizio->diff($data_fine)->days;
 if ($giorni == 0) $giorni = 1;
 
 // Info appartamento
-$sqlAppartamento = "SELECT * FROM appartamenti WHERE codice = ?";
-$stmt = $conn->prepare($sqlAppartamento);
-$stmt->bind_param("i", $prenotazione['appartamento']);
-$stmt->execute();
-$resultAppartamento = $stmt->get_result();
-if ($resultAppartamento->num_rows === 0) die("Appartamento non trovato.");
-$appartamento = $resultAppartamento->fetch_assoc();
+if(isset($_GET['codice'])){
+    $cod = $_GET['codice'];
+    $sqlAppartamento = "SELECT * FROM appartamenti WHERE codice = ?";
+    $stmt = $conn->prepare($sqlAppartamento);
+    $stmt->bind_param("i", $cod);
+    $stmt->execute();
+    $resultAppartamento = $stmt->get_result();
+    if ($resultAppartamento->num_rows === 0) die("Appartamento non trovato.");
+    $appartamento = $resultAppartamento->fetch_assoc();
+}
+else{
+    $sqlAppartamento = "SELECT * FROM appartamenti WHERE codice = ?";
+    $stmt = $conn->prepare($sqlAppartamento);
+    $stmt->bind_param("i", $prenotazione['appartamento']);
+    $stmt->execute();
+    $resultAppartamento = $stmt->get_result();
+    if ($resultAppartamento->num_rows === 0) die("Appartamento non trovato.");
+    $appartamento = $resultAppartamento->fetch_assoc();
+}
 
 // Prezzo totale
 $prezzo_unitario = $appartamento['prezzo'];

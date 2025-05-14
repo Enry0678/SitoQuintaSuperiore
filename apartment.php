@@ -97,9 +97,52 @@ if($result->num_rows > 0){
 }
     $adulti = $_GET["adulti"];
     $bambini = $_GET["bambini"];
-    echo "<form action='reservation.php?codice={$codice}&checkin={$checkin}&checkout={$checkout}&adulti={$adulti}&bambini={$bambini}' method='post'>";
-    echo "   <input type='submit' value='Prenota ora'>";
-    echo "</form>";
+
+    $stmt = $conn->prepare("SELECT *
+FROM prenotazioni
+WHERE appartamento = ?
+  AND (
+    -- Caso: uguale
+    (data_inizio = ? AND data_fine = ?)
+    
+    OR
+    
+    -- Caso: esterno (completamente contenuta nel nuovo intervallo)
+    (? < data_inizio AND data_fine < ?)
+    
+    OR
+
+    -- Caso: da in mezzo a dopo
+    (data_inizio < ? AND data_fine < ?)
+    
+    OR
+    
+    -- Caso: da prima ad in mezzo
+    (? < data_inizio AND ? < data_fine)
+
+    OR
+    
+    -- Caso: tutto interno (prenotazione esistente contiene il nuovo intervallo)
+    (data_inizio < ? AND ? < data_fine)
+  );
+");
+    $stmt->bind_param("sssssssssss", $codice, $checkin, $checkout, $checkin, $checkout, $checkin, $checkout, $checkin, $checkout, $checkin, $checkout);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while($row = $result->fetch_assoc()){
+        var_dump($row);
+    }
+
+    if($result->num_rows == 0){
+        echo "<form action='reservation.php?codice={$codice}&checkin={$checkin}&checkout={$checkout}&adulti={$adulti}&bambini={$bambini}' method='post'>";
+        echo "   <input type='submit' value='Prenota ora'>";
+        echo "</form>";
+    }
+    else{
+        echo "L'appartamento è già stato prenotato per queste date";
+    }
+
 ?>
 
 </body>

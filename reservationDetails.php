@@ -28,7 +28,7 @@ echo "</header>";
 
 <?php
 
-$codice = $_GET["id"];
+$id = $_GET["id"];
 
 $nomeDatabase = "appartamentiDB";
 $nomeUtenteDB = "root";
@@ -39,8 +39,8 @@ if($conn->connect_error){
     die("Connection failed: " . $conn->connect_error);
 }
 
-$stmt = $conn->prepare("SELECT prenotazioni.*, appartamenti.nome FROM prenotazioni INNER JOIN appartamenti ON prenotazioni.appartamento = appartamenti.codice WHERE prenotazioni.id = ?");
-$stmt->bind_param("s", $codice);
+$stmt = $conn->prepare("SELECT prenotazioni.*, appartamenti.nome, appartamenti.codice FROM prenotazioni INNER JOIN appartamenti ON prenotazioni.appartamento = appartamenti.codice WHERE prenotazioni.id = ?");
+$stmt->bind_param("s", $id);
 $stmt->execute();
 $result = $stmt->get_result();
 $result = $result->fetch_assoc();
@@ -48,12 +48,12 @@ $result = $result->fetch_assoc();
 $data_inizio = date_format(date_create($result['data_inizio']), "d/m/Y");
 $data_fine = date_format(date_create($result['data_fine']), "d/m/Y");
 
-echo "Utente che effettua la prenotazione: {$result['utente']} <br>";
-echo "Appartamento selezionato: {$result['nome']} <br>";
+echo "Appartamento selezionato: <a href='apartment.php?codice={$result['codice']}&checkin={$result['data_inizio']}&checkout={$result['data_fine']}&adulti={$result['adulti']}&bambini={$result['bambini']}'>{$result['nome']}</a> <br>";
 echo "Numero di adulti: {$result['adulti']} <br>";
 echo "Numero di bambini: {$result['bambini']} <br>";
 echo "Data di checkin: {$data_inizio} <br>";
 echo "Data di checkout {$data_fine} <br>";
+echo "Scarica il pdf con i dati della tua prenotazione <a href='PDFPrenotazione.php?codice={$result['codice']}'>qui</a><br>"
 
 ?>
 </body>
