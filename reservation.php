@@ -58,10 +58,9 @@
     echo "Data di checkin: {$checkin} <br>";
     echo "Data di checkout {$checkout} <br>";
 
-    echo "<h3>Se i tuoi dati sono corretti prenota ora<h3>";
-    echo "<form action='makeReservation.php?codice={$codice}&utente={$_SESSION['username']}&adulti={$adulti}&bambini={$bambini}&data_inizio={$checkinDB}&data_fine={$checkoutDB}' method='get'>";
-    echo "    <input type='submit' value='Prenota'>";
-    echo "</form>";
+    echo "<a href='makeReservation.php?codice={$codice}&utente={$_SESSION['username']}&adulti={$adulti}&bambini={$bambini}&data_inizio={$checkinDB}&data_fine={$checkoutDB}'>";
+    echo "    <button>Prenota</button>";
+    echo "</a>";
     ?>
 </body>
 </html>
