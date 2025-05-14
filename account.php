@@ -60,11 +60,27 @@
                 echo "<p>Errore nel recupero dei dati utente.</p>";
             }
 
-            $mysqli->close();
-            $conn->close();
+
     ?>
     <a href="modifyProfile.php">Modifica il profilo</a>
     |
     <a href="addApartmentForm.php">Aggiungi un appartmento</a>
+
+    <h2>Visualizza le tue prenotazioni attive</h2>
+    <?php
+
+        $utente=$_SESSION["username"];
+        $query = $conn->prepare("SELECT * FROM prenotazioni WHERE utente = ? AND data_inizio > CURDATE()");
+        $query->bind_param("s", $utente);
+        $query->execute();
+        $result = $query->get_result();
+
+        while($row = $result->fetch_assoc()) {
+            echo "<a href='reservationDetails.php?id={$row['id']}'>Prenotazione con id {$row['id']}</a>";
+        }
+
+        $mysqli->close();
+        $conn->close();
+    ?>
 </body>
 </html>
