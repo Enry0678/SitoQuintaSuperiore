@@ -25,6 +25,8 @@ echo "</header>";
 $codice = $_GET["codice"];
 $checkin = $_GET["checkin"];
 $checkout = $_GET["checkout"];
+$adulti = $_GET["adulti"];
+$bambini = $_GET["bambini"];
 
 $nomeDatabase = "appartamentiDB";
 $nomeUtenteDB = "root";
@@ -47,7 +49,7 @@ if($result->num_rows > 0){
         echo "<h1>Appartamento: " . $row["nome"] . "</h1>";
         echo "<p>Proprietario: " . $row["proprietario"] . "</p>";
         echo "<p>Indirizzo: ".$row["indirizzo"]."</p>";
-        echo "<p>Prezzo: " . $row["prezzo"]*$days . "€</p>";
+        echo "<p>Prezzo: " . $row["prezzo"]*$days*($adulti+$bambini). "€</p>";
         echo "<p>Citta: " . $row["citta"] . "</p>";
         echo "<p>Descrizione: " . $row["descrizione"] . "</p>";
         echo "<p>Numero di camere: " . $row["numero_camere"] . "</p>";
@@ -95,44 +97,32 @@ if($result->num_rows > 0){
         $queryServizi->close();
     }
 }
-    $adulti = $_GET["adulti"];
-    $bambini = $_GET["bambini"];
 
-    $stmt = $conn->prepare("SELECT *
+    $stmt = $conn->prepare("
+SELECT *
 FROM prenotazioni
 WHERE appartamento = ?
   AND (
-    -- Caso: uguale
-    (data_inizio = ? AND data_fine = ?)
-    
+    (data_inizio < ? AND data_fine > ?) -- Caso 1a: Contenimento stretto
     OR
-    
-    -- Caso: esterno (completamente contenuta nel nuovo intervallo)
-    (? < data_inizio AND data_fine < ?)
-    
+    (data_inizio <= ? AND data_fine >= ? AND NOT (data_inizio < ? AND data_fine > ?)) -- Caso 1b: Contenimento con almeno un bordo coincidente
     OR
-
-    -- Caso: da in mezzo a dopo
-    (data_inizio < ? AND data_fine < ?)
-    
+    (data_fine BETWEEN ? AND ?)       -- Caso 2: Fine esistente dentro il nuovo periodo
     OR
-    
-    -- Caso: da prima ad in mezzo
-    (? < data_inizio AND ? < data_fine)
-
+    (data_inizio BETWEEN ? AND ?)     -- Caso 3: Inizio esistente dentro il nuovo periodo
     OR
-    
-    -- Caso: tutto interno (prenotazione esistente contiene il nuovo intervallo)
-    (data_inizio < ? AND ? < data_fine)
+    ((data_inizio BETWEEN ? AND ?) AND (data_fine BETWEEN ? AND ?)) -- Caso 4: Esistente interamente dentro il nuovo periodo
   );
 ");
-    $stmt->bind_param("sssssssssss", $codice, $checkin, $checkout, $checkin, $checkout, $checkin, $checkout, $checkin, $checkout, $checkin, $checkout);
+    $stmt->bind_param("sssssssssssssss", $codice,
+        $checkin, $checkout,    //caso 1a
+        $checkin, $checkout, $checkin, $checkout, //casi 1b
+        $checkin, $checkout, //caso 2
+        $checkin, $checkout, //caso 3
+        $checkin, $checkout, $checkin, $checkout //caso 4
+    );
     $stmt->execute();
     $result = $stmt->get_result();
-
-    while($row = $result->fetch_assoc()){
-        var_dump($row);
-    }
 
     if($result->num_rows == 0){
         echo "<form action='reservation.php?codice={$codice}&checkin={$checkin}&checkout={$checkout}&adulti={$adulti}&bambini={$bambini}' method='post'>";
