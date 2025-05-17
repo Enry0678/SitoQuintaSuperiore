@@ -53,8 +53,20 @@ echo "Numero di adulti: {$result['adulti']} <br>";
 echo "Numero di bambini: {$result['bambini']} <br>";
 echo "Data di checkin: {$data_inizio} <br>";
 echo "Data di checkout {$data_fine} <br>";
-echo "Scarica il pdf con i dati della tua prenotazione <a href='PDFPrenotazione.php?codice={$result['codice']}'>qui</a><br>"
+echo "Scarica il pdf con i dati della tua prenotazione <a href='PDFPrenotazione.php?codice={$result['codice']}'>qui</a><br>";
 
+$data_inizio = new DateTime($result['data_inizio']);
+$adesso = new DateTime();
+$adesso->format('Y-m-d');
+$giorni = $data_inizio->diff($adesso)->days;
+if($giorni > 7){
+    echo "<form action='deleteReservation.php?codice={$id}' method='get' onsubmit='return confirm(\"Sei sicuro di voler cancellare questa prenotazione?\");'>";
+    echo "<input type='submit' value='Cancella la prenotazione' id='cancButton'>";
+    echo "</form>";
+}
+else{
+    echo "La prenotazione non è più cancellabile";
+}
 ?>
 </body>
 </html>

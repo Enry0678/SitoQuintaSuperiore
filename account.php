@@ -66,7 +66,7 @@
     |
     <a href="addApartmentForm.php">Aggiungi un appartmento</a>
 
-    <h2>Visualizza le tue prenotazioni attive</h2>
+    <h2>Le tue prenotazioni attive</h2>
     <?php
 
         $utente=$_SESSION["username"];
@@ -79,8 +79,37 @@
             echo "<a href='reservationDetails.php?id={$row['id']}'>Prenotazione con id {$row['id']}</a>";
         }
 
-        $mysqli->close();
-        $conn->close();
+    ?>
+    <h2>Le tue prenotazioni in corso</h2>
+    <?php
+
+    $utente=$_SESSION["username"];
+    $query = $conn->prepare("SELECT * FROM prenotazioni WHERE utente = ? AND (CURDATE() BETWEEN data_inizio AND data_fine)");
+    $query->bind_param("s", $utente);
+    $query->execute();
+    $result = $query->get_result();
+
+    while($row = $result->fetch_assoc()) {
+        echo "<a href='reservationDetails.php?id={$row['id']}'>Prenotazione con id {$row['id']}</a>";
+    }
+
+    ?>
+
+    <h2>Le tue prenotazioni terminate</h2>
+    <?php
+
+    $utente=$_SESSION["username"];
+    $query = $conn->prepare("SELECT * FROM prenotazioni WHERE utente = ? AND data_fine < CURDATE()");
+    $query->bind_param("s", $utente);
+    $query->execute();
+    $result = $query->get_result();
+
+    while($row = $result->fetch_assoc()) {
+        echo "<a href='reservationDetails.php?id={$row['id']}'>Prenotazione con id {$row['id']}</a>";
+    }
+
+    $mysqli->close();
+    $conn->close();
     ?>
 </body>
 </html>
