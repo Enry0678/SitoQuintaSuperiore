@@ -26,7 +26,7 @@
 
     // Utilizzo prepared statement per prevenire SQL injection
     $stmt = $conn->prepare("INSERT INTO utenti (username, password, nome, cognome, data_nascita, nazionalita, email, telefono) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssssss", $username, hash("sha256", $password), $nome, $cognome, $data_nascita, $nazionalita, $email, $telefono);
+    $stmt->bind_param("ssssssss", $username, $password, $nome, $cognome, $data_nascita, $nazionalita, $email, $telefono);
     
     // Eseguo la query
     if($stmt->execute()) {

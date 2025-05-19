@@ -58,6 +58,23 @@
     echo "Data di checkin: {$checkin} <br>";
     echo "Data di checkout {$checkout} <br>";
 
+    echo "<h2>Pagamento</h2>";
+    echo "<form action='#' method='post'>";
+
+    echo "    <label for='cardholder'>Intestatario carta:</label><br>";
+    echo "    <input type='text' id='cardholder' name='cardholder' placeholder='Mario Rossi' required><br><br>";
+
+    echo "    <label for='cardnumber'>Numero carta:</label><br>";
+    echo "    <input type='tel' id='cardnumber' name='cardnumber' placeholder='1234 5678 9012 3456' pattern='[0-9\\s]{13,19}' maxlength='19' inputmode='numeric' required><br><br>";
+
+    echo "    <label for='expiry'>Data di scadenza (MM/AA):</label><br>";
+    echo "    <input type='text' id='expiry' name='expiry' placeholder='MM/AA' pattern='(0[1-9]|1[0-2])\\/\\d{2}' maxlength='5' required><br><br>";
+
+    echo "    <label for='cvv'>CVV:</label><br>";
+    echo "    <input type='password' id='cvv' name='cvv' placeholder='123' pattern='\\d{3}' maxlength='3' inputmode='numeric' required><br><br>";
+
+    echo "</form><br>";
+
     echo "<a href='makeReservation.php?codice={$codice}&utente={$_SESSION['username']}&adulti={$adulti}&bambini={$bambini}&data_inizio={$checkinDB}&data_fine={$checkoutDB}'>";
     echo "    <button>Prenota</button>";
     echo "</a>";

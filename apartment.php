@@ -23,10 +23,10 @@ else{
 echo "</header>";
 
 $codice = $_GET["codice"];
-$checkin = $_GET["checkin"];
-$checkout = $_GET["checkout"];
-$adulti = $_GET["adulti"];
-$bambini = $_GET["bambini"];
+$checkin = isset($_GET["checkin"]) ? $_GET["checkin"] : null;
+$checkout = isset($_GET["checkout"]) ? $_GET["checkout"] : null;
+$adulti = isset($_GET["adulti"]) ? (int)$_GET["adulti"] : 1;
+$bambini = isset($_GET["bambini"]) ? (int)$_GET["bambini"] : 0;
 
 $nomeDatabase = "appartamentiDB";
 $nomeUtenteDB = "root";
@@ -42,7 +42,18 @@ $stmt->bind_param("s", $codice);
 $stmt->execute();
 $result = $stmt->get_result();
 
-$days = (strtotime($checkout) - strtotime($checkin)) / 86400;
+if ($checkin && $checkout) {
+    $date1 = DateTime::createFromFormat('Y-m-d', $checkin);
+    $date2 = DateTime::createFromFormat('Y-m-d', $checkout);
+    if ($date1 && $date2) {
+        $diff = $date2->diff($date1)->days;
+        $giorni = ($diff > 0) ? $diff : 1; // minimo 1 giorno
+    } else {
+        $giorni = 1;
+    }
+} else {
+    $giorni = 1;
+}
 
 if($result->num_rows > 0){
     while($row = $result->fetch_assoc()){
@@ -57,7 +68,7 @@ if($result->num_rows > 0){
 
         echo "<p>Contatto del proprietario: {$row1['telefono']}</p>";
         echo "<p>Indirizzo: ".$row["indirizzo"]."</p>";
-        echo "<p>Prezzo: " . $row["prezzo"]*$days*($adulti+$bambini). "€</p>";
+        echo "<p>Prezzo: " . $row["prezzo"]*$giorni*($adulti+$bambini). "€</p>";
         echo "<p>Citta: " . $row["citta"] . "</p>";
         echo "<p>Descrizione: " . $row["descrizione"] . "</p>";
         echo "<p>Numero di camere: " . $row["numero_camere"] . "</p>";
@@ -133,9 +144,9 @@ WHERE appartamento = ?
     $result = $stmt->get_result();
 
     if($result->num_rows == 0){
-        echo "<form action='reservation.php?codice={$codice}&checkin={$checkin}&checkout={$checkout}&adulti={$adulti}&bambini={$bambini}' method='post'>";
-        echo "   <input type='submit' value='Prenota ora'>";
-        echo "</form>";
+        echo "<a href='reservation.php?codice={$codice}&checkin={$checkin}&checkout={$checkout}&adulti={$adulti}&bambini={$bambini}'>";
+        echo "   <button>Prenota ora</button>";
+        echo "</a>";
     }
     else{
         echo "L'appartamento è già stato prenotato per queste date";

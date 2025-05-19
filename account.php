@@ -64,7 +64,7 @@
     ?>
     <a href="modifyProfile.php">Modifica il profilo</a>
     |
-    <a href="addApartmentForm.php">Aggiungi un appartmento</a>
+    <a href="manageApartments.php">Gestisci i tuoi appartamenti</a>
 
     <h2>Le tue prenotazioni attive</h2>
     <?php
