@@ -7,7 +7,7 @@
     $data_inizio = $_GET['data_inizio'];
     $data_fine = $_GET['data_fine'];
 
-    $nomeDatabase = "appartamentiDB";
+    $nomeDatabase = "my_enricoghezzo";
     $nomeUtenteDB = "root";
     $passwordDB = "";
 

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrati</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
         .error-message {
             color: red;
@@ -20,93 +21,97 @@
 <body>
     <header>
         <nav>
-            <ul>
-                <?php 
-                    session_start();
-                    if(isset($_SESSION["username"])){
-                        echo "<li><a href='index.php'>Home</a></li>";
-                        echo "<li><a href='account.php'>Profilo</a></li>";
-                        echo "<li><a href='logout.php'>Logout</a></li>";
-                    }
-                    else{
-                        echo "<li><a href='index.php'>Home</a></li>";
-                        echo "<li><a href='login.php'>Login</a></li>";
-                    }
-                ?>
-            </ul>
+            <div class="navbar-container">
+                <div class="site-name">ItaliaStay</div>
+                <ul>
+                    <?php 
+                        session_start();
+                        if(isset($_SESSION["username"])){
+                            echo "<li><a href='index.php'>Home</a></li>";
+                            echo "<li><a href='account.php'>Profilo</a></li>";
+                            echo "<li><a href='logout.php'>Logout</a></li>";
+                        }
+                        else{
+                            echo "<li><a href='index.php'>Home</a></li>";
+                            echo "<li><a href='login.php'>Login</a></li>";
+                        }
+                    ?>
+                </ul>
+            </div>
         </nav>
     </header>
-    <form action="validateRegister.php" method="post" id="registrationForm">
-        <label for="nome">Nome:</label><br>
-        <input type="text" id="nome" name="nome" required><br>
+    <div class="centered-form-container">
+        <form class="auth-form" action="validateRegister.php" method="post" id="registrationForm">
+            <h2>Registrati</h2>
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" id="nome" name="nome" required>
 
-        <label for="cognome">Cognome:</label><br>
-        <input type="text" id="cognome" name="cognome" required><br>
+            <label for="cognome" class="form-label">Cognome</label>
+            <input type="text" id="cognome" name="cognome" required>
 
-        <label for="data_nascita">Data di nascita:</label><br>
-        <input type="date" id="data_nascita" name="data_nascita" required><br>
+            <label for="data_nascita" class="form-label">Data di nascita</label>
+            <input type="date" id="data_nascita" name="data_nascita" required>
 
-        <label for="nazionalita">Nazionalità:</label><br>
-        <select id="nazionalita" name="nazionalita" required>
-            <option value="">Seleziona nazionalità</option>
-            <option value="IT">Italiano</option>
-            <option value="FR">Français</option>
-            <option value="DE">Deutsch</option>
-            <option value="ES">Español</option>
-            <option value="UK">English</option>
-            <option value="US">American</option>
-            <option value="CH">Schweizer</option>
-            <option value="AT">Österreichisch</option>
-            <option value="BE">Belge</option>
-            <option value="NL">Nederlands</option>
-            <option value="PT">Português</option>
-            <option value="GR">Ελληνικά</option>
-            <option value="PL">Polski</option>
-            <option value="RU">Русский</option>
-            <option value="CN">中文</option>
-            <option value="JP">日本語</option>
-            <option value="KR">한국어</option>
-            <option value="IN">भारतीय</option>
-            <option value="BR">Brasileiro</option>
-            <option value="AR">عربي</option>
-            <option value="TR">Türkçe</option>
-            <option value="SE">Svenska</option>
-            <option value="NO">Norsk</option>
-            <option value="DK">Dansk</option>
-            <option value="FI">Suomalainen</option>
-            <option value="CZ">Čeština</option>
-            <option value="HU">Magyar</option>
-            <option value="RO">Română</option>
-            <option value="Other">Altro</option>
-        </select><br>
+            <label for="nazionalita" class="form-label">Nazionalità</label>
+            <select id="nazionalita" name="nazionalita" required>
+                <option value="">Seleziona nazionalità</option>
+                <option value="IT">Italiano</option>
+                <option value="FR">Français</option>
+                <option value="DE">Deutsch</option>
+                <option value="ES">Español</option>
+                <option value="UK">English</option>
+                <option value="US">American</option>
+                <option value="CH">Schweizer</option>
+                <option value="AT">Österreichisch</option>
+                <option value="BE">Belge</option>
+                <option value="NL">Nederlands</option>
+                <option value="PT">Português</option>
+                <option value="GR">Ελληνικά</option>
+                <option value="PL">Polski</option>
+                <option value="RU">Русский</option>
+                <option value="CN">中文</option>
+                <option value="JP">日本語</option>
+                <option value="KR">한국어</option>
+                <option value="IN">भारतीय</option>
+                <option value="BR">Brasileiro</option>
+                <option value="AR">عربي</option>
+                <option value="TR">Türkçe</option>
+                <option value="SE">Svenska</option>
+                <option value="NO">Norsk</option>
+                <option value="DK">Dansk</option>
+                <option value="FI">Suomalainen</option>
+                <option value="CZ">Čeština</option>
+                <option value="HU">Magyar</option>
+                <option value="RO">Română</option>
+                <option value="Other">Altro</option>
+            </select>
 
-        <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username" required>
-        <div id="username-message"></div><br>
+            <label for="username" class="form-label">Username</label>
+            <input type="text" id="username" name="username" required>
+            <div id="username-message"></div>
 
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" required><br>
+            <label for="password" class="form-label">Password</label>
+            <input type="password" id="password" name="password" required>
 
-        <label for="confirm_password">Conferma Password:</label><br>
-        <input type="password" id="confirm_password" name="confirm_password" required><br>
+            <label for="confirm_password" class="form-label">Conferma Password</label>
+            <input type="password" id="confirm_password" name="confirm_password" required>
 
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email" required><br>
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" name="email" required>
 
-        <label for="telefono">Telefono:</label><br>
-        <input type="tel" id="telefono" name="telefono" required><br>
+            <label for="telefono" class="form-label">Telefono</label>
+            <input type="tel" id="telefono" name="telefono" required>
 
-        <button type="submit" id="submit-btn">Registrati</button>
-        
-    </form>
-
-    <p>Hai già un account? <a href="login.php">Accedi</a></p>
-    <?php
-        if(isset($_SESSION["error"])){
-            echo "<p style='color: red;'>" . $_SESSION["error"] . "</p>";
-            unset($_SESSION["error"]);
-        }
-    ?>
+            <button type="submit" id="submit-btn">Registrati</button>
+            <p style="text-align:center; margin-top:1rem;">Hai già un account? <a href="login.php">Accedi</a></p>
+            <?php
+                if(isset($_SESSION["error"])){
+                    echo "<p style='color: red; text-align:center;'>" . $_SESSION["error"] . "</p>";
+                    unset($_SESSION["error"]);
+                }
+            ?>
+        </form>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

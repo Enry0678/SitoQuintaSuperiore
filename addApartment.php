@@ -25,7 +25,7 @@ $immagine2_content = getFileContent($_FILES['immagine2']);
 $immagine3_content = getFileContent($_FILES['immagine3']);
 
 // Connessione DB
-$conn = new mysqli("localhost", "root", "", "appartamentiDB");
+$conn = new mysqli("localhost", "root", "", "my_enricoghezzo");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }

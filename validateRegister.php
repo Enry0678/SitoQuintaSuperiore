@@ -11,7 +11,7 @@
     $email = $_POST["email"];
     $telefono = $_POST["telefono"];
     
-    $nomeDatabase = "appartamentiDB";
+    $nomeDatabase = "my_enricoghezzo";
     $nomeUtenteDB = "root";
     $passwordDB = "";
 

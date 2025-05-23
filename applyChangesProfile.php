@@ -1,12 +1,7 @@
 <?php
     session_start();
-
-    //prendo i dati dal form
-    $password = $_POST["password"];
-    $email = $_POST["email"];
-    $telefono = $_POST["telefono"];
     
-    $nomeDatabase = "appartamentiDB";
+    $nomeDatabase = "my_enricoghezzo";
     $nomeUtenteDB = "root";
     $passwordDB = "";
 
@@ -16,12 +11,41 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    //preparo la password per la query
-    $password = hash("sha256", $password);
+    //recupero i dati dell'utente
+    $sql = $conn->prepare("SELECT * FROM utenti WHERE username=?;");
+    $sql->bind_param("s", $_SESSION["username"]);
+    $sql->execute();
+    $result = $sql->get_result();
+    $row = $result->fetch_assoc();
+
+    $password = "";
+    $email = "";
+    $telefono = "";
+    if($_POST["password"] != ""){
+        $password = hash("sha256", $_POST["password"]);
+    }
+    else{
+        $password = $row["password"];
+    }
+
+    if($_POST["email"] != ""){
+        $email = $_POST["email"];
+    }
+    else{
+        $email = $row["email"];
+    }
+
+    if($_POST["telefono"] != ""){
+        $telefono = $_POST["telefono"];
+    }
+    else{
+        $telefono = $row["telefono"];
+    }
+    
 
     //query per verificare le credenziali
-    $sql = "UPDATE (password, email, telefono) VALUES (?,?,?) WHERE username=?;";
-    $sql->bind_param("ssss", hash("sha256", $password), $email, $telefono, $_SESSION["username"]);
+    $sql = $conn->prepare("UPDATE utenti SET password=?, email=?, telefono=? WHERE username=?;");
+    $sql->bind_param("ssss", $password, $email, $telefono, $_SESSION["username"]);
 
     if($sql->execute()) {
         header("Location: account.php");

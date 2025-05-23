@@ -4,7 +4,7 @@
 if(isset($_POST['username'])) {
     $username = $_POST['username'];
 
-    $nomeDatabase = "appartamentiDB";
+    $nomeDatabase = "my_enricoghezzo";
     $nomeUtenteDB = "root";
     $passwordDB = "";
 

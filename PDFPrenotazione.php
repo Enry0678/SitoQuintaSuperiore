@@ -5,7 +5,7 @@ require('fpdf186/fpdf.php');
 $utente = $_SESSION['username'];
 
 // Connessione al database
-$conn = new mysqli('localhost', 'root', '', 'appartamentiDB');
+$conn = new mysqli('localhost', 'root', '', 'my_enricoghezzo');
 if ($conn->connect_error) die("Connessione fallita: " . $conn->connect_error);
 
 // Ultima prenotazione

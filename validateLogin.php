@@ -5,7 +5,7 @@
     $username = $_POST["username"];
     $password = $_POST["password"];
     
-    $nomeDatabase = "appartamentiDB";
+    $nomeDatabase = "my_enricoghezzo";
     $nomeUtenteDB = "root";
     $passwordDB = "";
 

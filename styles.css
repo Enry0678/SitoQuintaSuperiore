@@ -1,0 +1,666 @@
+/* Importa il font Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background: #f5f6fa;
+    color: #222;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+}
+
+header {
+    background: #003580;
+    color: #fff;
+    padding: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+nav ul {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 1rem 2rem;
+    gap: 1.5rem;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1.2rem;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+nav a:hover {
+    background: #2563c7;
+}
+
+form {
+    background: #fff;
+    border: 3px solid #febb02;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+    max-width: 900px;
+    margin: -60px auto 2rem auto;
+    padding: 1.5rem 2rem 1rem 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    z-index: 10;
+}
+
+form label {
+    display: block;
+    font-size: 1rem;
+    color: #003580;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+    margin-top: 0.7rem;
+}
+
+form input[type="text"],
+form input[type="date"],
+form input[type="number"] {
+    padding: 0.28rem 0.85rem;
+    font-size: 1.03rem;
+    border: 2px solid #b5c9e2;
+    border-radius: 14px;
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+form input[type="text"]:focus,
+form input[type="date"]:focus,
+form input[type="number"]:focus {
+    border-color: #2563c7;
+    box-shadow: 0 0 0 2px #eaf1fb;
+}
+
+form button {
+    background: #0071c2;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 0.8rem 2.2rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-left: auto;
+}
+form button:hover {
+    background: #005fa3;
+}
+
+/* Hero section */
+.hero {
+    background: #003580;
+    color: #fff;
+    text-align: center;
+    padding: 3.5rem 2rem 7rem 2rem;
+}
+.hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+.hero p {
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+}
+
+/* Box informativo */
+.info-box {
+    max-width: 900px;
+    margin: 2rem auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+    padding: 2rem;
+}
+.info-box p {
+    color: #222;
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+}
+
+@media (max-width: 900px) {
+    form, .info-box {
+        max-width: 98vw;
+        padding: 1rem;
+    }
+    .hero {
+        padding: 2rem 1rem 6rem 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    form {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem 0.5rem;
+    }
+    form button {
+        width: 100%;
+        margin-left: 0;
+    }
+    .hero h1 {
+        font-size: 1.5rem;
+    }
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 0.28rem 0.85rem;
+    font-size: 1.03rem;
+    border: 2px solid #b5c9e2;
+    border-radius: 14px;
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+    margin-bottom: 0.5rem;
+}
+
+.form-group select:focus {
+    border-color: #2563c7;
+    box-shadow: 0 0 0 2px #eaf1fb;
+    outline: none;
+}
+
+.form-group select:hover {
+    border-color: #2563c7;
+}
+
+.form-label {
+    font-size: 1.08rem;
+    color: #2563c7;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.01em;
+    transition: color 0.2s;
+}
+
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group input[type="number"] {
+    margin-bottom: 0;
+}
+
+.form-btn-group {
+    min-width: 120px;
+    flex: 0 0 120px;
+    display: flex;
+    align-items: flex-end;
+}
+
+@media (max-width: 900px) {
+    .form-row {
+        flex-direction: column;
+        gap: 0.7rem;
+    }
+    .form-group {
+        min-width: 100%;
+    }
+    .form-btn-group {
+        min-width: 100%;
+        justify-content: flex-end;
+    }
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.site-name {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: #febb02;
+    letter-spacing: 0.5px;
+    margin-right: 2.5rem;
+    font-family: 'Poppins', Arial, sans-serif;
+}
+
+/* --- Login/Registrazione --- */
+.centered-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 60px);
+    margin-top: 20px;
+    padding: 20px;
+    padding-top: 100px;
+    box-sizing: border-box;
+}
+
+.auth-form {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+    border: 2px solid #febb02;
+    padding: 2.5rem 2rem 2rem 2rem;
+    min-width: 320px;
+    max-width: 350px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.auth-form h2 {
+    text-align: center;
+    color: #003580;
+    margin-bottom: 1.2rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="password"],
+.auth-form input[type="email"],
+.auth-form input[type="tel"],
+.auth-form input[type="date"],
+.auth-form select {
+    border-radius: 14px;
+    padding: 0.28rem 0.85rem;
+    font-size: 1.03rem;
+    border: 2px solid #b5c9e2;
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.auth-form input[type="text"]:focus,
+.auth-form input[type="password"]:focus,
+.auth-form input[type="email"]:focus,
+.auth-form input[type="tel"]:focus,
+.auth-form input[type="date"]:focus,
+.auth-form select:focus {
+    border-color: #2563c7;
+    box-shadow: 0 0 0 2px #eaf1fb;
+    outline: none;
+}
+
+.auth-form select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232563c7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 1em;
+    padding-right: 2.5rem;
+}
+
+.auth-form button {
+    margin: 0 auto;
+    display: block;
+}
+
+/* --- Profilo Utente --- */
+.profile-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+    border: 2px solid #febb02;
+    max-width: 600px;
+    margin: 2.5rem auto;
+    padding: 2rem 2.5rem;
+}
+
+.profile-card h2, .profile-card h3 {
+    color: #003580;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.profile-info {
+    margin-bottom: 1.5rem;
+    font-size: 1.08rem;
+    color: #2563c7;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.booking-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-size: 0.98rem;
+}
+
+.booking-table th, .booking-table td {
+    border: 1px solid #e0e6f7;
+    padding: 0.5rem 0.7rem;
+    text-align: center;
+}
+
+.booking-table th {
+    background: #eaf1fb;
+    color: #003580;
+    font-weight: 600;
+}
+
+/* --- Risultati Ricerca --- */
+.results-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    margin: 2.5rem auto;
+    max-width: 1100px;
+}
+
+.apartment-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+    border: 2px solid #e0e6f7;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.apartment-card:hover {
+    box-shadow: 0 8px 24px rgba(0,49,130,0.13);
+    border-color: #febb02;
+}
+
+.apartment-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.apartment-info {
+    padding: 1.1rem 1.2rem 1.2rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.apartment-info h3 {
+    color: #003580;
+    font-size: 1.18rem;
+    margin-bottom: 0.2rem;
+}
+
+.apartment-price {
+    color: #0071c2;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.btn-primary {
+    display: inline-block;
+    background: #0071c2;
+    color: #fff;
+    border-radius: 8px;
+    padding: 0.5rem 1.3rem;
+    text-decoration: none;
+    font-weight: 600;
+    text-align: center;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover {
+    background: #003580;
+}
+
+/* Apartment Form Specific Styles */
+.apartment-form {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+    border: 2px solid #febb02;
+    max-width: 600px;
+    margin: 2.5rem auto;
+    padding: 2rem 2.5rem;
+}
+
+.apartment-form h1 {
+    color: #003580;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.apartment-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    max-width: none;
+}
+
+.apartment-form label {
+    display: block;
+    font-size: 1.08rem;
+    color: #2563c7;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.01em;
+}
+
+.apartment-form input[type="text"],
+.apartment-form input[type="number"],
+.apartment-form select {
+    width: 100%;
+    padding: 0.5rem 0.85rem;
+    font-size: 1.03rem;
+    border: 2px solid #b5c9e2;
+    border-radius: 14px;
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+}
+
+.apartment-form input[type="text"]:focus,
+.apartment-form input[type="number"]:focus,
+.apartment-form select:focus {
+    border-color: #2563c7;
+    box-shadow: 0 0 0 2px #eaf1fb;
+    outline: none;
+}
+
+.apartment-form input[type="file"] {
+    width: 100%;
+    padding: 0.5rem 0.85rem;
+    font-size: 1.03rem;
+    border: 2px solid #b5c9e2;
+    border-radius: 14px;
+    background: #fff;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.apartment-form input[type="file"]:hover {
+    border-color: #2563c7;
+    box-shadow: 0 0 0 2px #eaf1fb;
+}
+
+.apartment-form input[type="file"]:focus {
+    border-color: #2563c7;
+    box-shadow: 0 0 0 2px #eaf1fb;
+    outline: none;
+}
+
+.apartment-form .services-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0.8rem;
+    margin: 0.5rem 0;
+}
+
+.apartment-form .service-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.apartment-form .service-item:hover {
+    background: #f0f4f9;
+}
+
+.apartment-form .service-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #2563c7;
+    margin: 0;
+}
+
+.apartment-form .service-item label {
+    margin: 0;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #003580;
+    display: flex;
+    align-items: center;
+}
+
+.apartment-form input[type="submit"] {
+    background: #0071c2;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 0.8rem 2rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.apartment-form input[type="submit"]:hover {
+    background: #005fa3;
+}
+
+.apartment-form select {
+    width: 100%;
+    padding: 0.28rem 0.85rem;
+    font-size: 1.03rem;
+    border: 2px solid #b5c9e2;
+    border-radius: 14px;
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232563c7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 1em;
+    padding-right: 2.5rem;
+    cursor: pointer;
+}
+
+.apartment-form select:focus {
+    border-color: #2563c7;
+    box-shadow: 0 0 0 2px #eaf1fb;
+    outline: none;
+}
+
+.apartment-form select:hover {
+    border-color: #2563c7;
+}
+
+@media (max-width: 768px) {
+    .apartment-form {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+    
+    .apartment-form .services-container {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+}
+
+.profile-card select {
+    width: 100%;
+    padding: 0.28rem 0.85rem;
+    font-size: 1.03rem;
+    border: 2px solid #b5c9e2;
+    border-radius: 14px;
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232563c7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 1em;
+    padding-right: 2.5rem;
+    cursor: pointer;
+}
+
+.profile-card select:focus {
+    border-color: #2563c7;
+    box-shadow: 0 0 0 2px #eaf1fb;
+    outline: none;
+}
+
+.profile-card select:hover {
+    border-color: #2563c7;
+}
+
+.profile-card .apartment-form select {
+    width: 100%;
+    padding: 0.28rem 0.85rem;
+    font-size: 1.03rem;
+    border: 2px solid #b5c9e2;
+    border-radius: 14px;
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232563c7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 1em;
+    padding-right: 2.5rem;
+    cursor: pointer;
+}
+
+.profile-card .apartment-form select:focus {
+    border-color: #2563c7;
+    box-shadow: 0 0 0 2px #eaf1fb;
+    outline: none;
+}
+
+.profile-card .apartment-form select:hover {
+    border-color: #2563c7;
+} 
